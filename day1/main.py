@@ -1,4 +1,4 @@
-from src.student import Student
+from day1.student import Student
 
 s1=Student("小明",18,657)
 s2=Student("小红",17,689)

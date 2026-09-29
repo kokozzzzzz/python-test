@@ -29,6 +29,7 @@
 
         bash
         .venv\Scripts\activate
+
         macOS / Linux:
 
         bash
@@ -38,6 +39,10 @@
 
         bash
         pip install -r requirements.txt
+
+    5.导出依赖
+        bush
+        pip freeze > requirements.txt
 
 
 ## 项目结构
