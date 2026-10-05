@@ -1,4 +1,4 @@
-# Python 项目练习（Day 1 - Day 3）
+# Python 项目练习（Day 1 - Day 4）
 
 这是一个 Python 学习练习项目，按照“每日一个独立模块”的方式组织。每天的内容作为独立的迷你项目存放在对应目录下，共享同一个虚拟环境。
 
@@ -26,6 +26,16 @@
 - 能自己写出 `__enter__` 和 `__exit__`
 - 完成一个综合练习，把装饰器、生成器、`with` 串起来
 
+### Day 4：类型注解、dataclass 与 Pydantic 数据校验
+- 掌握基础类型注解：为函数参数和返回值标注类型，如 `def add(a: int, b: int) -> int`
+- 使用 `list[dict[str, str]]` 描述嵌套数据结构
+- 使用 `str | None` 表示可能为空的返回值
+- 使用 `@dataclass` 自动生成 `__init__` 和 `__repr__`，减少样板代码
+- 使用 Pydantic `BaseModel` 和 `Field` 对字段做校验（如 `gt` / `le` / `min_length`）
+- 理解校验失败时 `ValidationError` 的错误信息结构
+- 使用 `model_dump()` 和 `model_dump_json()` 在模型与 dict / JSON 之间转换
+- 完成一个综合练习：读取并校验 `data/llm_config.json` 中的 LLM 配置
+
 ## 项目结构
 
 ```text
@@ -37,6 +47,7 @@ python-test/
 ├── data/
 |   ├── test.txt          # Day3 生成器测试数据
 |   ├── users.txt         # Day3 用户数据
+|   ├── llm_config.json   # Day4 待校验的配置文件
 │   └── students.json     # Day1 保存的学生数据
 ├── day1/                 # Day 1 独立迷你项目
 │   ├── __init__.py
@@ -55,6 +66,12 @@ python-test/
 │   ├── generator_demo.py   # 文件生成器
 │   ├── file_context.py     # 上下文管理器
 │   └── day3_demo.py        # Day3 综合小练习
+|
+├── day4/                 # Day4 类型注解、dataclass、Pydantic
+│   ├── type_hint_demo.py     # 类型注解练习
+│   ├── dataclass_demo.py     # dataclass 练习
+│   ├── pydantic_demo.py      # Pydantic 基础练习
+│   └── config_validator.py   # Day4 综合练习：配置校验
 |
 └── output/               # Day2 保存的 API 数据
     ├── Emma200605.json
