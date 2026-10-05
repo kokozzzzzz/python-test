@@ -17,6 +17,15 @@
 - 使用 `.env` 文件管理敏感凭证（GitHub Personal Access Token），避免硬编码和泄露。
 - 初步实现模块化拆分：`api.py`（网络请求）、`file_utils.py`（文件保存）、`main.py`（流程控制）。
 
+### Day 3：装饰器、生成器与上下文管理器
+- 理解装饰器的本质：`@decorator` 等价于 `func = decorator(func)`
+- 掌握 `*args` 和 `**kwargs` 在装饰器中的作用
+- 会用 `functools.wraps` 保留原函数信息
+- 理解生成器与 `yield`：逐步产生数据，而不是一次性返回
+- 理解上下文管理器：`with` 如何自动管理资源
+- 能自己写出 `__enter__` 和 `__exit__`
+- 完成一个综合练习，把装饰器、生成器、`with` 串起来
+
 ## 项目结构
 
 ```text
@@ -25,18 +34,28 @@ python-test/
 ├── .gitignore
 ├── requirements.txt
 ├── README.md
-├── data/                 # Day1 保存的学生数据
-│   └── students.json
+├── data/
+|   ├── test.txt          # Day3 生成器测试数据
+|   ├── users.txt         # Day3 用户数据
+│   └── students.json     # Day1 保存的学生数据
 ├── day1/                 # Day 1 独立迷你项目
 │   ├── __init__.py
 │   ├── main.py           # Day1 入口文件
 │   └── student.py        # Student 类定义
-├── day2/                 # Day 2 独立迷你项目
+├── day2/                 # Day 2 github姓名获取
 │   ├── __init__.py
 │   ├── api_demo.py       # 接口测试调试脚本
 │   ├── api.py            # 负责网络请求
 │   ├── file_utils.py     # 负责数据筛选与保存
 │   └── main.py           # Day2 入口文件
+|
+├── day3/                 # Day3 装饰器、生成器、上下文管理器
+│   ├── __init__.py
+│   ├── timer_decorator.py  # 时间装饰器
+│   ├── generator_demo.py   # 文件生成器
+│   ├── file_context.py     # 上下文管理器
+│   └── day3_demo.py        # Day3 综合小练习
+|
 └── output/               # Day2 保存的 API 数据
     ├── Emma200605.json
     └── kokozzzzzz.json
