@@ -1,4 +1,4 @@
-# Python 项目练习（Day 1 - Day 4）
+# Python 项目练习（Day 1 - Day 5）
 
 这是一个 Python 学习练习项目，按照“每日一个独立模块”的方式组织。每天的内容作为独立的迷你项目存放在对应目录下，共享同一个虚拟环境。
 
@@ -36,6 +36,15 @@
 - 使用 `model_dump()` 和 `model_dump_json()` 在模型与 dict / JSON 之间转换
 - 完成一个综合练习：读取并校验 `data/llm_config.json` 中的 LLM 配置
 
+### Day 5：httpx 异步请求与 asyncio 并发
+- 使用 `httpx` 发送同步请求，作为耗时对照基准
+- 理解 `async` / `await`：协程的定义与调用方式
+- 使用 `asyncio.gather()` 并发执行多个任务，对比串行与并发的耗时差异
+- 使用 `httpx.AsyncClient` 复用连接发起异步请求
+- 为异步函数编写计时装饰器（`functools.wraps` + `await`）
+- 使用 Pydantic `BaseModel` 校验并筛选 API 返回字段（login / followers / public_repos / html_url）
+- 完成一个综合练习：读取 `data/users.txt` 中的用户名，并发请求 GitHub API 并保存到 `output/github_users.json`
+
 ## 项目结构
 
 ```text
@@ -46,7 +55,7 @@ python-test/
 ├── README.md
 ├── data/
 |   ├── test.txt          # Day3 生成器测试数据
-|   ├── users.txt         # Day3 用户数据
+|   ├── users.txt         # Day3 / Day5 用户数据
 |   ├── llm_config.json   # Day4 待校验的配置文件
 │   └── students.json     # Day1 保存的学生数据
 ├── day1/                 # Day 1 独立迷你项目
@@ -73,8 +82,17 @@ python-test/
 │   ├── pydantic_demo.py      # Pydantic 基础练习
 │   └── config_validator.py   # Day4 综合练习：配置校验
 |
-└── output/               # Day2 保存的 API 数据
+├── day5/                 # Day5 httpx 异步请求与 asyncio 并发
+│   ├── async_demo.py         # asyncio 基础演示（gather 并发）
+│   ├── sync_request.py       # 同步请求基准
+│   ├── async_request.py      # 异步并发请求
+│   ├── api.py                # 异步 GitHub API 封装
+│   ├── file_utils.py         # 路径定位、JSON 保存、用户名读取
+│   └── github_batch.py       # Day5 综合练习入口：并发批量查询
+|
+└── output/               # API 数据保存目录
     ├── Emma200605.json
+    ├── github_users.json     # Day5 保存的批量用户数据
     └── kokozzzzzz.json
 ```
 
@@ -120,9 +138,9 @@ pip freeze > requirements.txt
 
 
 
-## 配置说明（Day 2 必需）
+## 配置说明（Day 2 / Day 5 必需）
 
-Day 2 的代码需要访问 GitHub API，请按以下步骤配置 Token：
+Day 2 和 Day 5 的代码需要访问 GitHub API，请按以下步骤配置 Token：
 
 1. 在项目根目录创建 `.env` 文件，内容如下：
 
@@ -148,6 +166,19 @@ python -m day1.main
 
 ```bash
 python -m day2.main
+```
+
+**运行 Day 5：**
+
+```bash
+python -m day5.github_batch
+```
+
+**Day 5 对比实验：**
+
+```bash
+python day5/sync_request.py    # 同步请求
+python day5/async_request.py   # 异步并发请求
 ```
 
 ## 更新依赖
