@@ -1,4 +1,4 @@
-# Python 项目练习（Day 1 - Day 5）
+# Python 项目练习（Day 1 - Day 6）
 
 这是一个 Python 学习练习项目，按照“每日一个独立模块”的方式组织。每天的内容作为独立的迷你项目存放在对应目录下，共享同一个虚拟环境。
 
@@ -45,11 +45,23 @@
 - 使用 Pydantic `BaseModel` 校验并筛选 API 返回字段（login / followers / public_repos / html_url）
 - 完成一个综合练习：读取 `data/users.txt` 中的用户名，并发请求 GitHub API 并保存到 `output/github_users.json`
 
+### Day 6：Git 分支管理与 Linux / WSL 环境实践
+- 熟练使用 `git status / add / commit / log / diff / branch / switch / merge / push / pull`
+- 创建 `feature/github-summary` 分支开发新功能：为 Day 5 批量查询新增 `print_summary()` 统计总 followers，切回 `main` 后完成 `git merge`
+- 主动制造并解决一次 merge conflict，理解 `<<<<<<< HEAD`、`=======`、`>>>>>>> branch` 的含义
+- 使用 `git log --oneline --graph --all` 查看分支与合并历史
+- Linux 基础命令：`pwd / ls / cd / mkdir / touch / cat / grep / find / ps / kill`，以及管道 `|` 与重定向 `>` / `>>`
+- 使用 `curl` 在终端直接请求 GitHub API，查看 JSON 内容与响应头
+- 环境变量：`export` 与 `echo $VAR`，Python 中通过 `os.getenv()` 读取（day6/os_test.py）
+- 新增 `.env_example` 环境变量模板并提交 Git，`.env` 继续由 `.gitignore` 忽略
+- 在 WSL 中从零 clone 项目，创建 `python3 -m venv .venv`，`pip install -r requirements.txt` 后终端运行项目，验证不依赖 Windows IDE 环境
+
 ## 项目结构
 
 ```text
 python-test/
 ├── .env                  # 本地私有配置，存放 Token（不提交至 Git）
+├── .env_example          # 环境变量模板（可提交至 Git）
 ├── .gitignore
 ├── requirements.txt
 ├── README.md
@@ -90,6 +102,9 @@ python-test/
 │   ├── file_utils.py         # 路径定位、JSON 保存、用户名读取
 │   └── github_batch.py       # Day5 综合练习入口：并发批量查询
 |
+├── day6/                 # Day6 Git / Linux / 环境变量练习
+│   └── os_test.py            # 读取环境变量练习（os.getenv）
+|
 └── output/               # API 数据保存目录
     ├── Emma200605.json
     ├── github_users.json     # Day5 保存的批量用户数据
@@ -98,7 +113,7 @@ python-test/
 
 ## 环境
 - Python 3.13.14
-- 操作系统：Windows
+- 操作系统：Windows / WSL (Ubuntu)
 
 ## 安装步骤
 
@@ -142,13 +157,19 @@ pip freeze > requirements.txt
 
 Day 2 和 Day 5 的代码需要访问 GitHub API，请按以下步骤配置 Token：
 
-1. 在项目根目录创建 `.env` 文件，内容如下：
+1. 复制根目录的 `.env_example` 模板为 `.env`：
+
+   ```bash
+   cp .env_example .env
+   ```
+
+   然后在 `.env` 中填入真实值：
 
    ```env
    GITHUB_TOKEN=你的GitHub个人访问令牌
    ```
 
-2. 确认 `.gitignore` 中包含 `.env`，防止 Token 被提交至 Git。
+2. 确认 `.gitignore` 中包含 `.env`，防止 Token 被提交至 Git；`.env_example` 只放变量名、不放真实值，可以提交。
 
 3. 代码中会通过 `os.getenv("GITHUB_TOKEN")` 读取该配置。
 
@@ -181,6 +202,13 @@ python day5/sync_request.py    # 同步请求
 python day5/async_request.py   # 异步并发请求
 ```
 
+**运行 Day 6（环境变量练习）：**
+
+```bash
+export MY_NAME=koko            # Windows PowerShell: $env:MY_NAME="koko"
+python day6/os_test.py
+```
+
 ## 更新依赖
 
 如果你新增了第三方库，请重新导出依赖清单：
@@ -189,4 +217,3 @@ python day5/async_request.py   # 异步并发请求
 pip freeze > requirements.txt
 ```
 
-这里是git冲突演示区域
