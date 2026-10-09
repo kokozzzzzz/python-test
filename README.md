@@ -1,4 +1,4 @@
-# Python 项目练习（Day 1 - Day 6）
+# Python 项目练习（Day 1 - Day 7）
 
 这是一个 Python 学习练习项目，按照“每日一个独立模块”的方式组织。每天的内容作为独立的迷你项目存放在对应目录下，共享同一个虚拟环境。
 
@@ -56,6 +56,17 @@
 - 新增 `.env_example` 环境变量模板并提交 Git，`.env` 继续由 `.gitignore` 忽略
 - 在 WSL 中从零 clone 项目，创建 `python3 -m venv .venv`，`pip install -r requirements.txt` 后终端运行项目，验证不依赖 Windows IDE 环境
 
+### Day 7：pytest 基础测试
+- 理解 pytest 的用例发现规则：文件名需为 `test_*.py`（或 `*_test.py`），函数名以 `test_` 开头才会被自动收集
+- 用最朴素的 `assert` 编写断言，完成第一个测试 `test_add`
+- 使用 `@pytest.mark.parametrize` 参数化测试：一份用例覆盖多组输入（1+2、2+3、10+20、0+0）
+- 使用 `pytest.raises(ValidationError)` 断言非法输入抛出预期异常（如 followers 为负数）
+- 使用内置 fixture `tmp_path` 在临时目录中测试 `save_user` 的 JSON 写入，不污染真实的 `output/` 目录
+- 把 Pydantic 模型 `GitHubUser` 拆到 `day7/models.py`，待测函数 `save_user` 拆到 `day7/file_utils_demo.py`，便于被测试导入
+- 在项目根目录放置 `conftest.py`，让 pytest 把项目根加入 `sys.path`，解决 `from day7.models import ...` 的导入问题
+- 将测试代码集中到 `tests/` 目录，与每日练习代码分离
+- `requirements.txt` 新增 `pytest`，当前 7 个用例全部通过
+
 ## 项目结构
 
 ```text
@@ -65,6 +76,7 @@ python-test/
 ├── .gitignore
 ├── requirements.txt
 ├── README.md
+├── conftest.py           # 空文件，让 pytest 把项目根加入 sys.path
 ├── data/
 |   ├── test.txt          # Day3 生成器测试数据
 |   ├── users.txt         # Day3 / Day5 用户数据
@@ -104,6 +116,17 @@ python-test/
 |
 ├── day6/                 # Day6 Git / Linux / 环境变量练习
 │   └── os_test.py            # 读取环境变量练习（os.getenv）
+|
+├── day7/                 # Day7 pytest 基础测试
+│   ├── __init__.py
+│   ├── models.py             # 待测 Pydantic 模型 GitHubUser
+│   ├── file_utils_demo.py    # 待测函数 save_user（JSON 保存 + 异常处理）
+│   └── test_basic.py         # 第一个测试：assert 与 parametrize
+|
+├── tests/                # 测试代码目录
+│   ├── day2_demo.py          # Day2 接口演示脚本（非 test_ 开头，pytest 不收集）
+│   ├── test_models.py        # 测试 GitHubUser：合法数据 / 非法 followers
+│   └── test_file_utils.py    # 用 tmp_path 测试 save_user
 |
 └── output/               # API 数据保存目录
     ├── Emma200605.json
@@ -207,6 +230,15 @@ python day5/async_request.py   # 异步并发请求
 ```bash
 export MY_NAME=koko            # Windows PowerShell: $env:MY_NAME="koko"
 python day6/os_test.py
+```
+
+**运行 Day 7（pytest 测试）：**
+
+```bash
+python -m pytest                          # 运行全部测试
+python -m pytest -v                       # 显示每个用例的结果
+python -m pytest day7/test_basic.py       # 只运行指定文件
+python -m pytest -k "test_add"            # 按名称筛选用例
 ```
 
 ## 更新依赖

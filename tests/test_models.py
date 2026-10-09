@@ -1,7 +1,7 @@
 from pydantic import ValidationError
 import pytest
 
-from day7.models import GitHubUser
+from GitHub_Profile_Analyzer.models import GitHubUser
 
 
 def test_valid_user():
