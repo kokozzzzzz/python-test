@@ -188,3 +188,5 @@ python day5/async_request.py   # 异步并发请求
 ```bash
 pip freeze > requirements.txt
 ```
+
+这里是git冲突演示区域
