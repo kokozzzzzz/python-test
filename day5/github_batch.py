@@ -51,6 +51,12 @@ async def process_user(
         print(f"[数据异常] {username}: {e}")
         return None
 
+def print_summary(users):
+    total_followers = sum(
+        user.followers for user in users
+    )
+
+    print(f"总 followers: {total_followers}")
 
 @Time
 async def main():
@@ -79,6 +85,8 @@ async def main():
         print(f"公开仓库: {user.public_repos}")
         print(f"主页: {user.html_url}")
         print("-" * 40)
+
+    print_summary(valid_users)
 
     data_to_save = [u.model_dump() for u in valid_users]
     if save_json(data_to_save,output_file):
