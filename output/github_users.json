@@ -1,19 +1,19 @@
 [
     {
         "login": "octocat",
-        "followers": 24477,
+        "followers": 24493,
         "public_repos": 8,
         "html_url": "https://github.com/octocat"
     },
     {
         "login": "torvalds",
-        "followers": 326659,
+        "followers": 326856,
         "public_repos": 12,
         "html_url": "https://github.com/torvalds"
     },
     {
         "login": "gaearon",
-        "followers": 93887,
+        "followers": 93894,
         "public_repos": 301,
         "html_url": "https://github.com/gaearon"
     },
