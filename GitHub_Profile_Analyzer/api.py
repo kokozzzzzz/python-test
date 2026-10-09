@@ -37,7 +37,7 @@ async def get_user(
         response.raise_for_status()
         return response.json()
     except httpx.TimeoutException:
-        print("[超时] {username}")
+        print(f"[超时] {username}")
         return None
     except httpx.HTTPStatusError as e:
         status = e.response.status_code
@@ -51,7 +51,7 @@ async def get_user(
             print(f"[HTTP {status}] {username}")
         return None
     except httpx.HTTPError as e:
-        print("[网络错误] {username}:{e}")
+        print(f"[网络错误] {username}:{e}")
         return None
 
 

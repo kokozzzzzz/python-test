@@ -22,7 +22,7 @@ def load_users(file_path: Path) -> list[str]:
     """
     path = Path(file_path)
     if not path.exists():
-        print("[文件不存在]{file_path}")
+        print(f"[文件不存在]{file_path}")
         return []
 
     users = []
